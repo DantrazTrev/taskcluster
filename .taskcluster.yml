@@ -311,8 +311,8 @@ tasks:
                     go env
                     mkdir -p "$${GOPATH}/src/github.com/taskcluster"
                     cd "$${GOPATH}/src/github.com/taskcluster"
-                    if [ ! -d generic-worker/.git ]; then rm -rf generic-worker; git clone "$${GITHUB_CLONE_URL}" 'generic-worker'; fi
-                    cd 'generic-worker'
+                    if [ ! -d taskcluster/.git ]; then rm -rf taskcluster; git clone "$${GITHUB_CLONE_URL}" 'taskcluster'; fi
+                    cd 'taskcluster'
                     git fetch "$${GITHUB_CLONE_URL}" "+$${GITHUB_SHA}:refs/heads/X$${TASK_ID}"
                     git checkout -f "X$${TASK_ID}"
                     git reset --hard "$${GITHUB_SHA}"
