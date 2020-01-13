@@ -10,7 +10,7 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/taskcluster/generic-worker/fileutil"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/fileutil"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
 	"github.com/taskcluster/taskcluster-client-go/tcauth"
 	"github.com/taskcluster/taskcluster-client-go/tcawsprovisioner"

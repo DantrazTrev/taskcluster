@@ -20,8 +20,8 @@ import (
 	"time"
 
 	"github.com/pborman/uuid"
-	"github.com/taskcluster/generic-worker/gwconfig"
-	"github.com/taskcluster/generic-worker/testutil"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/gwconfig"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/testutil"
 	"github.com/taskcluster/httpbackoff"
 	"github.com/taskcluster/slugid-go/slugid"
 	tcclient "github.com/taskcluster/taskcluster-client-go"

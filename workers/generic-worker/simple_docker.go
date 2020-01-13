@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/taskcluster/generic-worker/process"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/process"
 	"github.com/taskcluster/shell"
 )
 

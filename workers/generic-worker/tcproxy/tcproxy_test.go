@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/taskcluster/generic-worker/testutil"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/testutil"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
 	"github.com/taskcluster/taskcluster-client-go/tcauth"
 )

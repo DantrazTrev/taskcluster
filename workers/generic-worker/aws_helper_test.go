@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/taskcluster/generic-worker/gwconfig"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/gwconfig"
 	"github.com/taskcluster/taskcluster-client-go/tcpurgecache"
 	"github.com/taskcluster/taskcluster-client-go/tcqueue"
 )

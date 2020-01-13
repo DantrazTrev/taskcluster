@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/taskcluster/generic-worker/fileutil"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/fileutil"
 	"github.com/taskcluster/httpbackoff"
 	"github.com/taskcluster/taskcluster-base-go/scopes"
 )

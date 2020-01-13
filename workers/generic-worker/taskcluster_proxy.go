@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/taskcluster/generic-worker/tcproxy"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/tcproxy"
 	"github.com/taskcluster/taskcluster-base-go/scopes"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
 )

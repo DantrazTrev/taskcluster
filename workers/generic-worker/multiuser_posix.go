@@ -10,9 +10,9 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/taskcluster/generic-worker/host"
-	"github.com/taskcluster/generic-worker/process"
-	gwruntime "github.com/taskcluster/generic-worker/runtime"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/host"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/process"
+	gwruntime "github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/runtime"
 	"github.com/taskcluster/shell"
 )
 
