@@ -42,7 +42,7 @@ done
 echo "${OUTPUT_ALL_PLATFORMS}"
 echo "${OUTPUT_TEST}"
 
-go install github.com/taskcluster/generic-worker/gw-codegen
+go install ./gw-codegen
 export PATH="$(go env GOPATH)/bin:${PATH}"
 go generate ./...
 
@@ -53,8 +53,8 @@ function install {
     GOOS="${2}" GOARCH="${3}" go vet -tags "${1}" ./...
   fi
   # note, this just builds tests, it doesn't run them!
-  GOOS="${2}" GOARCH="${3}" CGO_ENABLED=0 go test -tags "${1}" -c github.com/taskcluster/generic-worker
-  GOOS="${2}" GOARCH="${3}" CGO_ENABLED=0 go test -tags "${1}" -c github.com/taskcluster/generic-worker/livelog
+  GOOS="${2}" GOARCH="${3}" CGO_ENABLED=0 go test -tags "${1}" -c .
+  GOOS="${2}" GOARCH="${3}" CGO_ENABLED=0 go test -tags "${1}" -c ./livelog
   GOOS="${2}" GOARCH="${3}" CGO_ENABLED=0 go build -o generic-worker-${1}-${2}-${3} -ldflags "-X main.revision=$(git rev-parse HEAD)" -tags "${1}" -v .
 }
 
@@ -92,10 +92,10 @@ CGO_ENABLED=0 go get github.com/taskcluster/livelog
 
 if $TEST; then
   go get github.com/taskcluster/taskcluster-proxy
-  CGO_ENABLED=1 GORACE="history_size=7" /usr/bin/sudo "GOPATH=$GOPATH" "GW_TESTS_RUN_AS_CURRENT_USER=" "TASKCLUSTER_CERTIFICATE=$TASKCLUSTER_CERTIFICATE" "TASKCLUSTER_ACCESS_TOKEN=$TASKCLUSTER_ACCESS_TOKEN" "TASKCLUSTER_CLIENT_ID=$TASKCLUSTER_CLIENT_ID" "TASKCLUSTER_ROOT_URL=$TASKCLUSTER_ROOT_URL" $(which go) test -v -tags multiuser -ldflags "-X github.com/taskcluster/generic-worker.revision=$(git rev-parse HEAD)" -race -timeout 1h ./...
+  CGO_ENABLED=1 GORACE="history_size=7" /usr/bin/sudo "GOPATH=$GOPATH" "GW_TESTS_RUN_AS_CURRENT_USER=" "TASKCLUSTER_CERTIFICATE=$TASKCLUSTER_CERTIFICATE" "TASKCLUSTER_ACCESS_TOKEN=$TASKCLUSTER_ACCESS_TOKEN" "TASKCLUSTER_CLIENT_ID=$TASKCLUSTER_CLIENT_ID" "TASKCLUSTER_ROOT_URL=$TASKCLUSTER_ROOT_URL" $(which go) test -v -tags multiuser -ldflags "-X github.com/taskcluster/taskcluster/workers/generic-worker.revision=$(git rev-parse HEAD)" -race -timeout 1h ./...
   MYGOHOSTOS="$(go env GOHOSTOS)"
   if [ "${MYGOHOSTOS}" == "linux" ] || [ "${MYGOHOSTOS}" == "darwin" ]; then
-    CGO_ENABLED=1 GORACE="history_size=7" go test -v -tags docker -ldflags "-X github.com/taskcluster/generic-worker.revision=$(git rev-parse HEAD)" -race -timeout 1h ./...
+    CGO_ENABLED=1 GORACE="history_size=7" go test -v -tags docker -ldflags "-X github.com/taskcluster/taskcluster/workers/generic-worker.revision=$(git rev-parse HEAD)" -race -timeout 1h ./...
   fi
 fi
 go get golang.org/x/lint/golint
