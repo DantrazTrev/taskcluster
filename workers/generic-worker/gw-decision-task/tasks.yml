@@ -165,14 +165,14 @@ Commands:
           mkdir -p "${GOPATH}/src/github.com/taskcluster"
           cd "${GOPATH}/src/github.com/taskcluster"
           if [ ! -d taskcluster/.git ]; then rm -rf taskcluster; git clone "${GITHUB_CLONE_URL}" 'taskcluster'; fi
-          cd 'taskcluster/workers/generic-worker'
+          cd 'taskcluster'
           git fetch "${GITHUB_CLONE_URL}" "+${GITHUB_SHA}:refs/heads/X${TASK_ID}"
           git checkout -f "X${TASK_ID}"
           git reset --hard "${GITHUB_SHA}"
           git clean -fdx
           git checkout -B tmp -t "X${TASK_ID}"
           go get -v -u github.com/taskcluster/livelog github.com/taskcluster/taskcluster-proxy github.com/gordonklaus/ineffassign
-          cd gw-codegen
+          cd 'workers/generic-worker/gw-codegen'
           go get -v
           cd ..
           go generate
@@ -210,14 +210,14 @@ Commands:
       - 'if not exist "%GOPATH%\src\github.com\taskcluster" mkdir "%GOPATH%\src\github.com\taskcluster"'
       - 'cd "%GOPATH%\src\github.com\taskcluster"'
       - 'if not exist taskcluster git clone %GITHUB_CLONE_URL% taskcluster'
-      - 'cd taskcluster\workers\generic-worker'
+      - 'cd taskcluster'
       - 'git fetch %GITHUB_CLONE_URL% +%GITHUB_SHA%:refs/heads/X%TASK_ID%'
       - 'git checkout -f "X%TASK_ID%"'
       - 'git reset --hard %GITHUB_SHA%'
       - 'git clean -fdx'
       - 'git checkout -B tmp -t "X%TASK_ID%"'
       - go get -v -u github.com/taskcluster/livelog github.com/taskcluster/taskcluster-proxy github.com/gordonklaus/ineffassign
-      - cd gw-codegen
+      - cd workers\generic-worker\gw-codegen
       - go get -v
       - cd ..
       - go generate

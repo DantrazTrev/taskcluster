@@ -124,7 +124,7 @@ func NewDecisionTask(yamlPath string, gitRevision string) (*DecisionTask, error)
 	// TaskID will be "" if running outside of taskcluster, e.g. locally by a developer
 	d.TaskID = os.Getenv("TASK_ID")
 	if d.TaskID != "" {
-		d.TaskGroupID = d.TaskID
+		d.TaskGroupID = os.Getenv("TASK_GROUP_ID")
 	} else {
 		// If running decision task code outside of taskcluster (e.g. developer
 		// manually runs `gw-decision-task tasks.yml`), then still generate
