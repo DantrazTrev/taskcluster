@@ -231,6 +231,7 @@ tasks:
                   else: {}
             each(job):
               taskId: {$eval: as_slugid(job.name)}
+              taskGroupId: {$eval: as_slugid('taskGroupId')}
               provisionerId: proj-taskcluster
               workerType: ci
               created: {$fromNow: ''}
@@ -290,6 +291,7 @@ tasks:
                 source: ${repo.url}
           workerTasks:
           - taskId: {$eval: as_slugid("generic-worker_decision")}
+            taskGroupId: {$eval: as_slugid('taskGroupId')}
             created: {$fromNow: ''}
             deadline: {$fromNow: '2 hours'}
             provisionerId: proj-taskcluster
@@ -299,6 +301,7 @@ tasks:
               env:
                 GITHUB_SHA: '${repo.ref}'
                 GITHUB_CLONE_URL: '${repo.git_url}'
+                TASK_GROUP_ID: {$eval: as_slugid('taskGroupId')}
               command:
                 - - /bin/bash
                   - -vxec
@@ -312,7 +315,7 @@ tasks:
                     mkdir -p "$${GOPATH}/src/github.com/taskcluster"
                     cd "$${GOPATH}/src/github.com/taskcluster"
                     if [ ! -d taskcluster/.git ]; then rm -rf taskcluster; git clone "$${GITHUB_CLONE_URL}" 'taskcluster'; fi
-                    cd 'taskcluster'
+                    cd taskcluster
                     git fetch "$${GITHUB_CLONE_URL}" "+$${GITHUB_SHA}:refs/heads/X$${TASK_ID}"
                     git checkout -f "X$${TASK_ID}"
                     git reset --hard "$${GITHUB_SHA}"
@@ -342,6 +345,7 @@ tasks:
               - queue:create-task:highest:proj-taskcluster/gw-ci-*
           releaseTasks:
           - taskId: {$eval: 'as_slugid("release")'}
+            taskGroupId: {$eval: as_slugid('taskGroupId')}
             provisionerId: proj-taskcluster
             workerType: release
             created: {$fromNow: ''}
