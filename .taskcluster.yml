@@ -184,7 +184,7 @@ tasks:
           post_packages: true
       in:
         $let:
-          allTasks:
+          platformTasks:
             $map:
               $map:
                 $flatten:
@@ -288,6 +288,58 @@ tasks:
                 description: ${job.name}
                 owner: ${owner}
                 source: ${repo.url}
+          workerTasks:
+          - taskId: {$eval: as_slugid("generic-worker_decision")}
+            created: {$fromNow: ''}
+            deadline: {$fromNow: '2 hours'}
+            provisionerId: proj-taskcluster
+            workerType: gw-ci-ubuntu-18-04
+            payload:
+              maxRunTime: 3600
+              env:
+                GITHUB_SHA: '${ref}'
+                GITHUB_CLONE_URL: '${git_url}'
+              command:
+                - - /bin/bash
+                  - -vxec
+                  - |
+                    export CGO_ENABLED=0
+                    export GOROOT="$(pwd)/go1.10.8/go"
+                    export GOPATH="$(pwd)/gopath1.10.8"
+                    export PATH="$${GOPATH}/bin:$${GOROOT}/bin:$${PATH}"
+                    go version
+                    go env
+                    mkdir -p "$${GOPATH}/src/github.com/taskcluster"
+                    cd "$${GOPATH}/src/github.com/taskcluster"
+                    if [ ! -d generic-worker/.git ]; then rm -rf generic-worker; git clone "$${GITHUB_CLONE_URL}" 'generic-worker'; fi
+                    cd 'generic-worker'
+                    git fetch "$${GITHUB_CLONE_URL}" "+$${GITHUB_SHA}:refs/heads/X$${TASK_ID}"
+                    git checkout -f "X$${TASK_ID}"
+                    git reset --hard "$${GITHUB_SHA}"
+                    git clean -fdx
+                    git checkout -B tmp -t "X$${TASK_ID}"
+                    mkdir -p "$${GOPATH}/bin"
+                    cd workers/generic-worker/gw-decision-task
+                    go install
+                    gw-decision-task tasks.yml "$${GITHUB_SHA}"
+              features:
+                taskclusterProxy: true
+              mounts:
+                - content:
+                    url: https://storage.googleapis.com/golang/go1.10.8.linux-amd64.tar.gz
+                    sha256: d8626fb6f9a3ab397d88c483b576be41fa81eefcec2fd18562c87626dbb3c39e
+                  directory: go1.10.8
+                  format: tar.gz
+            metadata:
+              name: Generic Worker CI Decision Task
+              description: Generates the tasks that build and test generic-worker
+              owner: taskcluster-internal@mozilla.com
+              source: ${git_url}
+            scopes:
+              - generic-worker:cache:generic-worker-checkout
+              - secrets:get:project/taskcluster/testing/generic-worker/ci-creds
+              - queue:scheduler-id:taskcluster-github
+              - queue:create-task:highest:proj-taskcluster/gw-ci-*
           releaseTasks:
           - taskId: {$eval: 'as_slugid("release")'}
             provisionerId: proj-taskcluster
@@ -352,9 +404,15 @@ tasks:
           $flattenDeep:
           # only build pushes to master; everything else should be tested in a PR
           - $if: 'tasks_for == "github-push" && event["ref"] == "refs/heads/master"'
-            then: {$eval: allTasks}
+            then:
+              $eval:
+                - platformTasks
+                - workerTasks
           - $if: 'tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"]'
-            then: {$eval: allTasks}
+            then:
+              $eval:
+                - platformTasks
+                - workerTasks
           # Release on tags; note that we must match the `v` to avoid triggering on pushes to golang
           # package tags like `clients/client-go/v1.2.3`.
           - $if: 'tasks_for == "github-push"'
