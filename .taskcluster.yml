@@ -297,8 +297,8 @@ tasks:
             payload:
               maxRunTime: 3600
               env:
-                GITHUB_SHA: '${ref}'
-                GITHUB_CLONE_URL: '${git_url}'
+                GITHUB_SHA: '${repo.ref}'
+                GITHUB_CLONE_URL: '${repo.git_url}'
               command:
                 - - /bin/bash
                   - -vxec
