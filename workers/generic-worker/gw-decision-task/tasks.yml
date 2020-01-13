@@ -131,8 +131,8 @@ Commands:
           go env
           mkdir -p "${GOPATH}/src/github.com/taskcluster"
           cd "${GOPATH}/src/github.com/taskcluster"
-          if [ ! -d generic-worker/.git ]; then rm -rf generic-worker; git clone "${GITHUB_CLONE_URL}" 'generic-worker'; fi
-          cd 'generic-worker'
+          if [ ! -d taskcluster/.git ]; then rm -rf taskcluster; git clone "${GITHUB_CLONE_URL}" 'taskcluster'; fi
+          cd 'taskcluster/workers/generic-worker'
           git fetch "${GITHUB_CLONE_URL}" "+${GITHUB_SHA}:refs/heads/X${TASK_ID}"
           git checkout -f "X${TASK_ID}"
           git reset --hard "${GITHUB_SHA}"
@@ -164,8 +164,8 @@ Commands:
           source tc-creds.sh
           mkdir -p "${GOPATH}/src/github.com/taskcluster"
           cd "${GOPATH}/src/github.com/taskcluster"
-          if [ ! -d generic-worker/.git ]; then rm -rf generic-worker; git clone "${GITHUB_CLONE_URL}" 'generic-worker'; fi
-          cd 'generic-worker'
+          if [ ! -d taskcluster/.git ]; then rm -rf taskcluster; git clone "${GITHUB_CLONE_URL}" 'taskcluster'; fi
+          cd 'taskcluster/workers/generic-worker'
           git fetch "${GITHUB_CLONE_URL}" "+${GITHUB_SHA}:refs/heads/X${TASK_ID}"
           git checkout -f "X${TASK_ID}"
           git reset --hard "${GITHUB_SHA}"
@@ -183,12 +183,12 @@ Commands:
             cp "${TASK_USER_CREDENTIALS}" next-task-user.json
             # IMPORTANT - run go test with GW_TESTS_RUN_AS_CURRENT_USER=true *before* running it without
             # otherwise tests that call `go run ....` will write go object files to .cache as root
-            GW_TESTS_RUN_AS_CURRENT_USER=true GORACE=history_size=7 CGO_ENABLED=1 go test -tags "${ENGINE}" -timeout 45m -ldflags "-X github.com/taskcluster/generic-worker.revision=${GITHUB_SHA}" -v ${RACE}
+            GW_TESTS_RUN_AS_CURRENT_USER=true GORACE=history_size=7 CGO_ENABLED=1 go test -tags "${ENGINE}" -timeout 45m -ldflags "-X github.com/taskcluster/taskcluster/workers/generic-worker.revision=${GITHUB_SHA}" -v ${RACE}
           fi
           if [ "$(go env GOARCH)" != 'armv6l' ]; then
             export CGO_ENABLED=1
           fi
-          GORACE=history_size=7 go test -tags "${ENGINE}" -timeout 45m -ldflags "-X github.com/taskcluster/generic-worker.revision=${GITHUB_SHA}" -v ${RACE} ./...
+          GORACE=history_size=7 go test -tags "${ENGINE}" -timeout 45m -ldflags "-X github.com/taskcluster/taskcluster/workers/generic-worker.revision=${GITHUB_SHA}" -v ${RACE} ./...
           "${GOPATH}/bin/ineffassign" .
     Windows:
       - |
@@ -209,8 +209,8 @@ Commands:
       - git config --global core.autocrlf false
       - 'if not exist "%GOPATH%\src\github.com\taskcluster" mkdir "%GOPATH%\src\github.com\taskcluster"'
       - 'cd "%GOPATH%\src\github.com\taskcluster"'
-      - 'if not exist generic-worker git clone %GITHUB_CLONE_URL% generic-worker'
-      - 'cd generic-worker'
+      - 'if not exist taskcluster git clone %GITHUB_CLONE_URL% taskcluster'
+      - 'cd taskcluster\workers\generic-worker'
       - 'git fetch %GITHUB_CLONE_URL% +%GITHUB_SHA%:refs/heads/X%TASK_ID%'
       - 'git checkout -f "X%TASK_ID%"'
       - 'git reset --hard %GITHUB_SHA%'
@@ -234,9 +234,9 @@ Commands:
       - set CGO_ENABLED=%CGO_ENABLED_TESTS%
       - set GORACE=history_size=7
       - copy "%TASK_USER_CREDENTIALS%" "%CD%\next-task-user.json"
-      - 'go test -tags "%ENGINE%" -timeout 45m -ldflags "-X github.com/taskcluster/generic-worker.revision=%GITHUB_SHA%" -v %RACE% ./...'
+      - 'go test -tags "%ENGINE%" -timeout 45m -ldflags "-X github.com/taskcluster/taskcluster/workers/generic-worker.revision=%GITHUB_SHA%" -v %RACE% ./...'
       - set GW_TESTS_RUN_AS_CURRENT_USER=true
-      - 'go test -tags "%ENGINE%" -timeout 45m -ldflags "-X github.com/taskcluster/generic-worker.revision=%GITHUB_SHA%" -v %RACE%'
+      - 'go test -tags "%ENGINE%" -timeout 45m -ldflags "-X github.com/taskcluster/taskcluster/workers/generic-worker.revision=%GITHUB_SHA%" -v %RACE%'
       - ineffassign .
 
 Mounts:
