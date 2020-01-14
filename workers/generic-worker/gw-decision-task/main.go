@@ -203,7 +203,7 @@ func (dt *DecisionTask) GenerateTasks() (*TaskGroup, error) {
 						mountEntry["directory"] = mount.Directory
 					}
 					if mount.File != "" {
-						mountEntry["file"] = mount.File
+						mountEntry["file"] = substituteVars(context, mount.File)
 					}
 					if content.Format != "" {
 						mountEntry["format"] = content.Format
