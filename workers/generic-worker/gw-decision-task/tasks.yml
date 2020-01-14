@@ -198,9 +198,6 @@ Commands:
         reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "Intel64" > NUL && set RACE=-race || set "RACE= "
         :: find.exe may have exited with exit code 1, so need to explicitly exit with 0
         exit /b 0
-      - jq -r .secret.b64_encoded_credentials_batch_script ci-creds.json > tc-creds.bat.b64
-      - certutil -decode tc-creds.bat.b64 tc-creds.bat
-      - call tc-creds.bat 2>&1
       - set CGO_ENABLED=0
       - set GOPATH=%CD%\gopath1.10.8
       - set GOROOT=%CD%\go1.10.8\go
@@ -209,6 +206,9 @@ Commands:
       - go version
       - go env
       - git config --global core.autocrlf false
+      - jq -r .secret.b64_encoded_credentials_batch_script ci-creds.json > tc-creds.bat.b64
+      - certutil -decode tc-creds.bat.b64 tc-creds.bat
+      - call tc-creds.bat 2>&1
       - 'if not exist "%GOPATH%\src\github.com\taskcluster" mkdir "%GOPATH%\src\github.com\taskcluster"'
       - 'cd "%GOPATH%\src\github.com\taskcluster"'
       - 'if not exist taskcluster git clone %GITHUB_CLONE_URL% taskcluster'
