@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/fileutil"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/gwconfig"
 	"github.com/taskcluster/httpbackoff"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
 	"github.com/taskcluster/taskcluster-client-go/tcsecrets"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/fileutil"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/gwconfig"
 )
 
 // BootstrapConfig is the data structure used by generic-worker to provide

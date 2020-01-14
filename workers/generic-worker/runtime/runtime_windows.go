@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/host"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/win32"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/host"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/win32"
 	"golang.org/x/sys/windows/registry"
 )
 

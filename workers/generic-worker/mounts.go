@@ -15,12 +15,12 @@ import (
 	"time"
 
 	"github.com/mholt/archiver"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/fileutil"
 	"github.com/taskcluster/httpbackoff"
 	"github.com/taskcluster/slugid-go/slugid"
 	"github.com/taskcluster/taskcluster-base-go/scopes"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
 	"github.com/taskcluster/taskcluster-client-go/tcpurgecache"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/fileutil"
 )
 
 var (

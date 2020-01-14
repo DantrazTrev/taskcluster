@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/win32"
 	"github.com/taskcluster/taskcluster-base-go/scopes"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/win32"
 )
 
 type RunAsAdministratorFeature struct {

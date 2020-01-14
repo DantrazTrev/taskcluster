@@ -20,12 +20,12 @@ import (
 	"time"
 
 	"github.com/pborman/uuid"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/gwconfig"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/testutil"
 	"github.com/taskcluster/httpbackoff"
 	"github.com/taskcluster/slugid-go/slugid"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
 	"github.com/taskcluster/taskcluster-client-go/tcqueue"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/gwconfig"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/testutil"
 )
 
 var (

@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/process"
 	"github.com/taskcluster/taskcluster-client-go/tcqueue"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/process"
 )
 
 type (

@@ -26,16 +26,16 @@ import (
 
 	docopt "github.com/docopt/docopt-go"
 	sysinfo "github.com/elastic/go-sysinfo"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/expose"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/fileutil"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/gwconfig"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/host"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/process"
-	gwruntime "github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/runtime"
 	"github.com/taskcluster/taskcluster-base-go/scopes"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
 	"github.com/taskcluster/taskcluster-client-go/tcqueue"
 	"github.com/taskcluster/taskcluster-worker-runner/protocol"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/expose"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/fileutil"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/gwconfig"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/host"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/process"
+	gwruntime "github.com/taskcluster/taskcluster/workers/generic-worker/runtime"
 	"github.com/xeipuuv/gojsonschema"
 )
 

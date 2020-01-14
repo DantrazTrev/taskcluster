@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/testutil"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/testutil"
 )
 
 // Test failure should resolve as "failed"

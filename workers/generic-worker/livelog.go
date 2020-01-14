@@ -8,11 +8,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/expose"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/livelog"
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/process"
 	"github.com/taskcluster/taskcluster-base-go/scopes"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/expose"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/livelog"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/process"
 )
 
 var (

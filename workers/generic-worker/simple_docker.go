@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/process"
 	"github.com/taskcluster/shell"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/process"
 )
 
 func (task *TaskRun) formatCommand(index int) string {

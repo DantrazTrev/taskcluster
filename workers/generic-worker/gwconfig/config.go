@@ -10,7 +10,6 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/taskcluster/taskcluster/workers/generic-worker/generic-worker/fileutil"
 	tcclient "github.com/taskcluster/taskcluster-client-go"
 	"github.com/taskcluster/taskcluster-client-go/tcauth"
 	"github.com/taskcluster/taskcluster-client-go/tcawsprovisioner"
@@ -18,6 +17,7 @@ import (
 	"github.com/taskcluster/taskcluster-client-go/tcqueue"
 	"github.com/taskcluster/taskcluster-client-go/tcsecrets"
 	"github.com/taskcluster/taskcluster-client-go/tcworkermanager"
+	"github.com/taskcluster/taskcluster/workers/generic-worker/fileutil"
 )
 
 type (
